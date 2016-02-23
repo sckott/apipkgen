@@ -3,6 +3,8 @@ apipkgen
 
 Generate a HTTP API wrapper package from a yaml template for the API
 
+The internals are a little hacky, but the point is to have as few dependencies as possible, just depending on `yaml` right now.
+
 ## Installation
 
 ```{r eval=FALSE}
@@ -26,7 +28,7 @@ Then go to the new directory, and in R/RStudio run `devtools::document()` and `d
 
 ## your package needs functions
 
-The package created doesn't have any exported functions, just internal functions for your to build user facing functions. 
+The package created doesn't have any exported functions, just internal functions for your to build user facing functions.
 
 Let's write a user facing functions. The Crossref API template above specified for the `works` route that parameters are `query` and `rows`. So let's work with those.
 
@@ -45,25 +47,25 @@ res <- crossref_works(query = "science")
 jsonlite::fromJSON(res)
 #> $status
 #> [1] "ok"
-#> 
+#>
 #> $`message-type`
 #> [1] "work-list"
-#> 
+#>
 #> $`message-version`
 #> [1] "1.0.0"
-#> 
+#>
 #> $message
 #> $message$query
 #> $message$query$`search-terms`
 #> [1] "science"
-#> 
+#>
 #> $message$query$`start-index`
 #> [1] 0
-#> 
-#> 
+#>
+#>
 #> $message$`items-per-page`
 #> [1] 20
-#> 
+#>
 #> $message$items
 #>     indexed.date-parts    indexed.date-time indexed.timestamp reference-count
 #> 1        2015, 12, 27 2015-12-27T23:37:50Z      1.451259e+12               0
