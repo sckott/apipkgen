@@ -1,0 +1,15 @@
+Package: apipkgen
+Type: Package
+Title: Package Generator for HTTP API Wrapper Packages
+Description: Package Generator for HTTP API Wrapper Packages.
+Version: 0.0.1.9000
+Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com"))
+License: MIT + file LICENSE
+URL: https://github.com/ropenscilabs/apipkgen
+BugReports: https://github.com/ropenscilabs/apipkgen/issues
+Imports:
+    yaml
+Suggests:
+    testthat
+RoxygenNote: 5.0.1

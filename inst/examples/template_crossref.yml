@@ -1,0 +1,25 @@
+baseurl: http://api.crossref.org
+data: JSON
+routes:
+  works:
+    methods: GET
+    params:
+      query:
+        options: NULL
+        class: character
+        required: FALSE
+      rows:
+        options: NULL
+        class: numeric
+        required: FALSE
+  members:
+    methods: GET
+    params:
+      query:
+        options: NULL
+        class: numeric
+        required: FALSE
+      rows:
+        options: NULL
+        class: numeric
+        required: FALSE

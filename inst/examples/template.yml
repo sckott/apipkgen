@@ -1,0 +1,25 @@
+baseurl: http://httpbin.org
+data: JSON
+routes:
+  foo:
+    methods: GET, POST
+    params:
+      a:
+        options: NULL
+        class: character
+        required: FALSE
+      b:
+        options: c, d, e
+        class: character
+        required: TRUE
+  bar:
+    methods: GET
+    params:
+      books:
+        options: NULL
+        class: numeric
+        required: FALSE
+      users:
+        options: NULL
+        class: character
+        required: TRUE
