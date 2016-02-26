@@ -14,7 +14,7 @@
 #' \itemize{
 #'  \item required: TRUE
 #'  \item type: character string
-#'  \item description: one of JSON or XML (only JSON supported right now)
+#'  \item description: one of \code{json} or \code{xml} (only json supported right now)
 #' }
 #'
 #' @section routes:
@@ -30,8 +30,13 @@
 #'  \item type: array
 #'  \item description: Follows the following pattern:
 #'  name:
+#'    path:
+#'      id:
+#'        options: NULL
+#'        class: character
+#'        required: FALSE
 #'    params:
-#'      a:
+#'      query:
 #'        options: NULL
 #'        class: character
 #'        required: FALSE

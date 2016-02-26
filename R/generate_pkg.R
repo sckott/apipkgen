@@ -13,4 +13,5 @@ generate_pkg <- function(pkg_path, template_path = NULL) {
   path <- normalizePath(pkg_path, winslash = "/", mustWork = TRUE)
   write_helpers(file.path(path, "R/http-helpers.R"))
   write_fxns(template_path, outfile = file.path(path, "R/http-fxns.R"))
+  write_constants(template_path, outfile = file.path(path, "R/zzz.R"))
 }
