@@ -5,6 +5,20 @@ Generate a HTTP API wrapper package from a yaml template for the API
 
 The internals are a little hacky, but the point is to have as few dependencies as possible, just depending on `yaml` right now.
 
+## Steps
+
+* Specify API in a YAML file
+* Run `apipkgen::generate_pkg()` to generate a package
+* Write wrapper functions in the new package
+* Done!
+
+## Features
+
+* Package generation from a yaml template
+* gives back raw text right now, will add toggles to add JSON vs. XML parsers
+* specify query parameters, including options, whether required or not, and expected class
+* same as previous, but for paths on the base URL
+
 ## Installation
 
 
@@ -19,15 +33,13 @@ library("apipkgen")
 
 ## generate a package
 
-use the function `rl_citation()`
+use the function `generate_pkg()`
 
 
 ```r
 template <- system.file('examples', 'template_crossref.yml', package = "apipkgen")
 apipkgen::generate_pkg("../crpkg", template_path = template)
 ```
-
-Then go to the new directory, and in R/RStudio run `devtools::document()` and `devtools::install()` (or equivalent)
 
 ## your package needs functions
 
@@ -43,6 +55,12 @@ crossref_works <- function(query = NULL, rows = NULL, ...) {
 ```
 
 In addition, it's a good idea to always allow users to pass in curl options. Beginners can ignore it, but power curl users will want/have to play with curl options. The function builder builds in `...` as a parameter so in the user facing function above all you have to do is add that as well for users to access.
+
+## Install package
+
+Go to the new directory, and in R/RStudio run `devtools::document()` and `devtools::install()` (or equivalent).
+
+## Use package
 
 Call the function. The package builder gives back plain text, so you have to parse it yourself.
 
