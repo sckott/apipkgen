@@ -89,10 +89,6 @@ jsonlite::fromJSON(res)
 #> 4        2015, 12, 27 2015-12-27T19:35:51Z      1.451245e+12               0
 ```
 
-### Meta
-
-* Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
-
 ## Citation
 
 Get citation information for `apipkgen` in R by running: `citation(package = 'apipkgen')`
