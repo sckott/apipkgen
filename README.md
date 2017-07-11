@@ -1,27 +1,37 @@
-apipkgen
-========
+# apipkgen
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+![GitHub _0.0.1.9310](https://img.shields.io/badge/GitHub-_0.0.1.9310-blue.svg)
+
 
 Generate a HTTP API wrapper package from a yaml template for the API
 
 The internals are a little hacky, but the point is to have as few dependencies as possible, just depending on `yaml` right now.
 
-## Steps
+### Steps
 
 * Specify API in a YAML file
 * Run `apipkgen::generate_pkg()` to generate a package
 * Write wrapper functions in the new package
 * Done!
 
-## Features
+### Features
 
 * Package generation from a yaml template
 * gives back raw text right now, will add toggles to add JSON vs. XML parsers
 * specify query parameters, including options, whether required or not, and expected class
 * same as previous, but for paths on the base URL
 
-## Installation
+## Package Status and Installation
 
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropensci/apipkgen?branch=master&svg=true)](https://ci.appveyor.com/project/ropensci/apipkgen)
+[![Travis-CI Build Status](https://travis-ci.org/ropensci/apipkgen.svg?branch=master)](https://travis-ci.org/)
+ [![codecov](https://codecov.io/gh/RMHogervorst/apipkgen/branch/master/graph/badge.svg)](https://codecov.io/gh/RMHogervorst/apipkgen)
+[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/apipkgen?color=blue)](https://github.com/metacran/cranlogs.app)
 
+__Installation Instructions__
+
+__Development Version__
 ```r
 devtools::install_github("ropenscilabs/apipkgen")
 ```
@@ -31,7 +41,8 @@ devtools::install_github("ropenscilabs/apipkgen")
 library("apipkgen")
 ```
 
-## generate a package
+## Usage
+### generate a package
 
 use the function `generate_pkg()`
 
@@ -41,26 +52,7 @@ template <- system.file('examples', 'template_crossref.yml', package = "apipkgen
 apipkgen::generate_pkg("../crpkg", template_path = template)
 ```
 
-## your package needs functions
-
-The package created doesn't have any exported functions, just internal functions for your to build user facing functions.
-
-Let's write a user facing functions. The Crossref API template above specified for the `works` route that parameters are `query` and `rows`. So let's work with those.
-
-
-```r
-crossref_works <- function(query = NULL, rows = NULL, ...) {
-  works(query = query, rows = rows, ...)
-}
-```
-
-In addition, it's a good idea to always allow users to pass in curl options. Beginners can ignore it, but power curl users will want/have to play with curl options. The function builder builds in `...` as a parameter so in the user facing function above all you have to do is add that as well for users to access.
-
-## Install package
-
-Go to the new directory, and in R/RStudio run `devtools::document()` and `devtools::install()` (or equivalent).
-
-## Use package
+### Use package
 
 Call the function. The package builder gives back plain text, so you have to parse it yourself.
 
@@ -97,6 +89,15 @@ jsonlite::fromJSON(res)
 #> 4        2015, 12, 27 2015-12-27T19:35:51Z      1.451245e+12               0
 ```
 
-## Meta
+## Citation
 
-* Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Get citation information for `apipkgen` in R by running: `citation(package = 'apipkgen')`
+
+## Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).
+By participating in this project you agree to abide by its terms.
+
+
+
+[![ropensci_footer](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
