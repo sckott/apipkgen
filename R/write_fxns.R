@@ -67,7 +67,7 @@ write_http_funs <- function(file) {
 
 make_alist <- function(args) {
   res <- replicate(length(args), substitute())
-  setNames(res, args)
+  stats::setNames(res, args)
 }
 
 # make_function2 <- function(args, env = parent.frame()) {
