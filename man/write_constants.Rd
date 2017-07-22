@@ -23,4 +23,3 @@ Constants to zzz
 write_constants()
 }
 }
-

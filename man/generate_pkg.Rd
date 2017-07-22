@@ -21,4 +21,3 @@ HTTP API package generator
 generate_pkg(pkg_path = "mypkg")
 }
 }
-

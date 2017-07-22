@@ -45,6 +45,7 @@ write_fxns <- function(template_path = NULL, outfile = "http-fxns.R") {
       )
       end <- '}\n'
       all <- paste(fun, urlprep, http, end, sep = "\n")
+      cat(auto_gen, file = outfile, append = TRUE, sep = "\n")
       cat(all, file = outfile, append = TRUE, sep = "\n")
     }
     cat("\n", file = outfile, append = TRUE)

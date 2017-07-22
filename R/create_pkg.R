@@ -91,5 +91,5 @@ NULL\n", name, name)
 
 create_utils <- function(path) {
   txt <- 'ct <- function(l) Filter(Negate(is.null), l)'
-  cat(txt, file = file.path(path, "R/zzz.R"))
+  cat(paste0(auto_gen, txt), file = file.path(path, "R/zzz.R"))
 }

@@ -2,8 +2,8 @@
 % Please edit documentation in R/apipkgen-package.R
 \docType{package}
 \name{apipkgen-package}
-\alias{apipkgen}
 \alias{apipkgen-package}
+\alias{apipkgen}
 \title{apipkgen}
 \description{
 apipkgen
@@ -12,4 +12,3 @@ apipkgen
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
 \keyword{package}
-

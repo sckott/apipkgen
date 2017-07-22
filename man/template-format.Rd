@@ -22,7 +22,7 @@ API template format
 \itemize{
  \item required: TRUE
  \item type: character string
- \item description: one of \code{json} or \code{xml} (only json supported right now)
+ \item description: one of \code{json} or \code{xml}
 }
 }
 
