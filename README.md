@@ -1,7 +1,8 @@
-# apipkgen
+apipkgen
+========
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-![GitHub _0.0.1.9310](https://img.shields.io/badge/GitHub-_0.0.1.9310-blue.svg)
+![GitHub 0.0.1.9310](https://img.shields.io/badge/GitHub-_0.0.1.9310-blue.svg)
 
 
 Generate a HTTP API wrapper package from a yaml template for the API
