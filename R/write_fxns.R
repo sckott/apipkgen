@@ -12,6 +12,12 @@
 write_fxns <- function(template_path = NULL, outfile = "http-fxns.R") {
   spec <- load_spec(template_path)
 
+  if ("raml" %in% names(spec)) write_fxns_raml(spec, outfile)
+  if ("swagger" %in% names(spec)) write_fxns_swagger(spec, outfile)
+  write_fxns_default(spec, outfile)
+}
+
+write_fxns_default <- function(template_path = NULL, outfile = "http-fxns.R") {
   for (i in seq_along(spec$routes)) {
     z <- spec$routes[[i]]
     z$methods <- gsub("\\s", "", strsplit(z$methods, ",")[[1]])

@@ -7,6 +7,13 @@
 #' we use a demo template yaml file
 #' @examples \dontrun{
 #' generate_pkg(pkg_path = "mypkg")
+#'
+#' # from a Swagger spec
+#' url <- "https://raw.githubusercontent.com/ropenscilabs/apispecs/master/swagger/crossref.yml"
+#' # x <- paste0(readLines(url), collapse = "\n")
+#' # yaml::yaml.load(string = x)
+#' download.file(url, "crossref.yml")
+#' generate_pkg(pkg_path = "foobar", template_path = "crossref.yml")
 #' }
 generate_pkg <- function(pkg_path, template_path = NULL) {
   create_pkg(path = pkg_path)
