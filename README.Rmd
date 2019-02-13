@@ -21,6 +21,12 @@ The internals are a little hacky, but the point is to have as few dependencies a
 * specify query parameters, including options, whether required or not, and expected class
 * same as previous, but for paths on the base URL
 
+### Example spec
+
+* nytimes <https://github.com/NYTimes/public_api_specs> (requires auth)
+* stripe <https://github.com/stripe/openapi> (requires auth)
+* 
+
 ## Package Status and Installation
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropensci/apipkgen?branch=master&svg=true)](https://ci.appveyor.com/project/ropensci/apipkgen)

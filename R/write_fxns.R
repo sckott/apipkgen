@@ -12,8 +12,9 @@
 write_fxns <- function(template_path = NULL, outfile = "http-fxns.R") {
   spec <- load_spec(template_path)
 
-  if ("raml" %in% names(spec)) write_fxns_raml(spec, outfile)
-  if ("swagger" %in% names(spec)) write_fxns_swagger(spec, outfile)
+  if ("raml" %in% names(spec)) return(write_fxns_raml(spec, outfile))
+  if (any(c("swagger", "openapi") %in% names(spec)))
+    return(write_fxns_swagger(template_path, outfile))
   write_fxns_default(spec, outfile)
 }
 
