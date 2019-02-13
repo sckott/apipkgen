@@ -1,6 +1,15 @@
 apipkgen
 ========
 
+```{r echo=FALSE}
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 Generate a HTTP API wrapper package from a yaml template for the API
@@ -25,7 +34,7 @@ The internals are a little hacky, but the point is to have as few dependencies a
 
 * nytimes <https://github.com/NYTimes/public_api_specs> (requires auth)
 * stripe <https://github.com/stripe/openapi> (requires auth)
-* 
+* Canada's BC government <https://github.com/bcgov/api-specs> (auth not required)
 
 ## Package Status and Installation
 
@@ -42,13 +51,17 @@ devtools::install_github("ropenscilabs/apipkgen")
 library("apipkgen")
 ```
 
+## Simple yml template (not fitting swagger/etc.)
+
 ### generate a package
 
 use the function `generate_pkg()`
 
 ```{r eval=FALSE}
-template <- system.file('examples', 'template_crossref.yml', package = "apipkgen")
-apipkgen::generate_pkg("../crpkg", template_path = template)
+template <- system.file('examples', 'template_crossref.yml',
+    package = "apipkgen")
+path <- file.path(tempdir(), "crpkg")
+generate_pkg(path, template_path = template)
 ```
 
 ### your package needs functions
@@ -59,7 +72,7 @@ Let's write a user facing functions. The Crossref API template above specified f
 
 ```{r eval=FALSE}
 crossref_works <- function(query = NULL, rows = NULL, ...) {
-  works(query = query, rows = rows, ...)
+  crpkg::works(query = query, rows = rows, ...)
 }
 ```
 
@@ -104,6 +117,48 @@ jsonlite::fromJSON(res)
 #> 3        2015, 12, 25 2015-12-25T19:17:30Z      1.451071e+12               0
 #> 4        2015, 12, 27 2015-12-27T19:35:51Z      1.451245e+12               0
 ```
+
+## Swagger/OpenAPI
+
+
+Get a spec, in this case from <https://github.com/bcgov/api-specs>
+
+
+```{r}
+bc_spec <- 
+  "https://raw.githubusercontent.com/bcgov/api-specs/master/bcgnws/bcgnws.json"
+bc_spec_path <- "bcgov_bcgnws.yaml"
+download.file(bc_spec, bc_spec_path)
+```
+
+Generate the package, and install it
+
+```{r}
+generate_pkg(
+  "bcgov/", 
+  template_path = bc_spec_path
+)
+devtools::install_local("bcgov", force = TRUE, quiet = TRUE)
+```
+
+Run some functions
+
+```{r}
+bcgov::nameAuthorities()
+```
+
+```{r}
+res <- bcgov::names_search(name = "Victoria")
+tibble::as_tibble(jsonlite::fromJSON(res)$features)
+```
+
+```{r}
+# cleanup
+unlink("bcgov", TRUE, TRUE)
+unlink(bc_spec_path, TRUE)
+remove.packages("bcgov")
+```
+
 
 ## Citation
 

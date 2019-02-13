@@ -18,7 +18,7 @@ write_fxns <- function(template_path = NULL, outfile = "http-fxns.R") {
   write_fxns_default(spec, outfile)
 }
 
-write_fxns_default <- function(template_path = NULL, outfile = "http-fxns.R") {
+write_fxns_default <- function(spec, outfile = "http-fxns.R") {
   for (i in seq_along(spec$routes)) {
     z <- spec$routes[[i]]
     z$methods <- gsub("\\s", "", strsplit(z$methods, ",")[[1]])
