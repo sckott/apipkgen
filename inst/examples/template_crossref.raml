@@ -1,0 +1,68 @@
+#%RAML 0.8
+title: Crossref API
+version: v0.1
+baseUri: http://api.crossref.org
+mediaType:  application/json
+protocols: [ HTTP ]
+documentation:
+  - title: Home
+    content: |
+      Crossref API docs at https://github.com/CrossRef/rest-api-doc/blob/master/rest_api.md
+/works:
+  uriParameters:
+  displayName: works
+  description: Search Crossref works
+  get:
+    description: Search Crossref works
+    queryParameters:
+      query:
+        description: Search terms
+        type: string
+        required: true
+        repeat: false
+    responses:
+      200:
+        body:
+          application/json:
+            schema: |
+              {
+                "type": "object",
+                "$schema": "http://json-schema.org/draft-03/schema",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  },
+                  "message-type": {
+                    "type": "string"
+                  },
+                  "message-version": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "object",
+                    "properties": {
+                      "query": {
+                        "type": "string"
+                      },
+                      "items-per-page": {
+                        "type": "string"
+                      },
+                      "items": {
+                        "type": "array"
+                      },
+                      "total-results": {
+                        "type": "string"
+                      },
+                      "facets": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+            example: |
+              {
+              "status": "ok",
+              "message-type": "work-list",
+              "message-version": "1.0.0",
+              "message": {}
+              }

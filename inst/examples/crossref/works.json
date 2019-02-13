@@ -1,0 +1,97 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "query": {
+      "search-terms": null,
+      "start-index": 0
+    },
+    "items-per-page": 1,
+    "items": [
+      {
+        "indexed": {
+          "date-parts": [
+            [
+              2015,
+              11,
+              23
+            ]
+          ],
+          "date-time": "2015-11-23T10:41:12Z",
+          "timestamp": 1448275272855
+        },
+        "reference-count": 0,
+        "publisher": "MDPI AG",
+        "issue": "6",
+        "DOI": "10.3390/ma8063101",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [
+            [
+              2015,
+              5,
+              29
+            ]
+          ],
+          "date-time": "2015-05-29T14:37:21Z",
+          "timestamp": 1432910241000
+        },
+        "page": "3101-3127",
+        "source": "CrossRef",
+        "title": [
+          "Photoluminescent ZnO Nanoparticles and Their Biological Applications"
+        ],
+        "prefix": "http://id.crossref.org/prefix/10.3390",
+        "volume": "8",
+        "author": [
+          {
+            "affiliation": [],
+            "family": "Zhang",
+            "given": "Zheng-Yong"
+          },
+          {
+            "affiliation": [],
+            "family": "Xiong",
+            "given": "Huan-Ming"
+          }
+        ],
+        "member": "http://id.crossref.org/member/1968",
+        "container-title": [
+          "Materials"
+        ],
+        "deposited": {
+          "date-parts": [
+            [
+              2015,
+              6,
+              2
+            ]
+          ],
+          "date-time": "2015-06-02T02:05:42Z",
+          "timestamp": 1433210742000
+        },
+        "score": 1,
+        "subtitle": [],
+        "issued": {
+          "date-parts": [
+            [
+              2015,
+              5,
+              29
+            ]
+          ]
+        },
+        "alternative-id": [
+          "ma8063101"
+        ],
+        "URL": "http://dx.doi.org/10.3390/ma8063101",
+        "ISSN": [
+          "1996-1944"
+        ]
+      }
+    ],
+    "total-results": 79025018,
+    "facets": {}
+  }
+}
