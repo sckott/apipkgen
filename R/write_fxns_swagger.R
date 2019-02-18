@@ -79,5 +79,5 @@ sw_param_names <- function(x, spec) {
 }
 
 sw_stand_route <- function(x) {
-  gsub("\\{|\\}", "", gsub("/", "_", sub('^/', '', x)))
+  gsub("[{}-]", "", gsub("/", "_", sub('^/', '', x)))
 }
