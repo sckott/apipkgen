@@ -13,6 +13,5 @@ Roxygen: list(markdown = TRUE)
 Imports:
     yaml
 Suggests:
-    roxygen2 (>= 6.1.1),
-    testthat
+    roxygen2 (>= 6.1.1)
 RoxygenNote: 6.1.1
