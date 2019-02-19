@@ -4,7 +4,7 @@
 \alias{generate_pkg}
 \title{HTTP API package generator}
 \usage{
-generate_pkg(pkg_path, template_path = NULL)
+generate_pkg(pkg_path, template_path = NULL, http_lib = "crul")
 }
 \arguments{
 \item{pkg_path}{(character) Path to the new package, where last part will be
@@ -12,6 +12,8 @@ the package name}
 
 \item{template_path}{(character) path to your yaml template file. by default,
 we use a demo template yaml file}
+
+\item{http_lib}{(character) one of \code{crul} (default) or \code{httr}}
 }
 \description{
 HTTP API package generator

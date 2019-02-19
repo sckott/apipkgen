@@ -2,7 +2,7 @@ Package: apipkgen
 Type: Package
 Title: Package Generator for HTTP API Wrapper Packages
 Description: Package Generator for HTTP API Wrapper Packages.
-Version: 0.0.4.9311
+Version: 0.0.5.9110
 Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "sckott@protonmail.com"))
 License: MIT + file LICENSE

@@ -67,8 +67,11 @@ load_spec <- function(x) {
   yaml::yaml.load_file(x)
 }
 
-write_http_funs <- function(file) {
-  x <- system.file("examples", "http-functions.R", package = "apipkgen")
+write_http_funs <- function(file, http_lib = "crul") {
+  http_lib_path <- switch(http_lib, 
+    crul = "http-functions-crul.R", 
+    httr = "http-functions-httr.R")
+  x <- system.file("examples", http_lib_path, package = "apipkgen")
   cat(paste(readLines(x), collapse = "\n"), file = file, append = TRUE)
 }
 

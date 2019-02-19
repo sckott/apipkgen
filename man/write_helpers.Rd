@@ -4,10 +4,12 @@
 \alias{write_helpers}
 \title{Write http helpers}
 \usage{
-write_helpers(outfile = "http-helpers.R")
+write_helpers(outfile = "http-helpers.R", http_lib = "crul")
 }
 \arguments{
 \item{outfile}{(character) Path to write http helpers file to}
+
+\item{http_lib}{(character) one of \code{crul} (default) or \code{httr}}
 }
 \description{
 Write http helpers
