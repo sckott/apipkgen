@@ -4,7 +4,8 @@
 \alias{generate_pkg}
 \title{HTTP API package generator}
 \usage{
-generate_pkg(pkg_path, template_path = NULL, http_lib = "crul")
+generate_pkg(pkg_path, template_path = NULL, http_lib = "crul",
+  base_url = NULL)
 }
 \arguments{
 \item{pkg_path}{(character) Path to the new package, where last part will be

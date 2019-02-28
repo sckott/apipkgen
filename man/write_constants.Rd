@@ -4,22 +4,21 @@
 \alias{write_constants}
 \title{Constants to zzz}
 \usage{
-write_constants(template_path = NULL, outfile = "zzz.R")
+write_constants(template_path = NULL, outfile = "zzz.R",
+  base_url = NULL)
 }
 \arguments{
 \item{template_path}{(character) path to your yaml template file. by default,
 we use a demo template yaml file}
 
 \item{outfile}{(character) Path to write your functions to}
+
+\item{base_url}{(character) optional. if not given, use base url from spec.
+you can give it here and it will override anything in the spec}
 }
 \value{
 returns silently, after writing things to zzz.R
 }
 \description{
 Constants to zzz
-}
-\examples{
-\dontrun{
-write_constants()
-}
 }

@@ -61,14 +61,14 @@ create_namespace <- function(path) {
 create_desc <- function(path, http_lib = "crul") {
   txt <- sprintf('Package: %s
 Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 LazyData: true
 Imports:
   %s,
-  jsonlite\n', get_name(path), http_lib)
+  jsonlite,\n  glue\n', get_name(path), http_lib)
   cat(txt, file = file.path(path, "DESCRIPTION"))
 }
 
@@ -87,6 +87,7 @@ create_pkg_level_man <- function(path, http_lib = "crul") {
   txt <- sprintf("#\' PACKAGE DESCRIPTION
 #\' %s
 #\' @importFrom jsonlite fromJSON
+#\' @importFrom glue glue
 #\' @name %s-package
 #\' @aliases %s
 #\' @docType package

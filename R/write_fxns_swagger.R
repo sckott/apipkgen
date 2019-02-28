@@ -10,8 +10,12 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
   }
 
   for (i in seq_along(routes)) {
+    if (exists("urlprep")) rm(urlprep)
     z <- routes[[i]]
     for (j in seq_along(z[grep("get|post|put|patch|delete|head|options", names(z))])) {
+
+      ## fxn level docs
+      pkg_level <- pkg_level_docs(z$get)
 
       ## parameters
       forms <- c()
@@ -39,33 +43,86 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
         forms <- c(forms, sprintf("%s = NULL", sec_param_name))
       }
 
+      # prep docs, parameter level
+      param_level <- vector("character", length = length(z$get$parameters))
+      for (k in seq_along(z$get$parameters)) {
+        desc <- z$get$parameters[[k]]$description %||% ""
+        if (desc != "") desc <- paste0(sub("\\.$", "", desc), ".")
+        required <- z$get$parameters[[k]]$required
+        if (!is.null(required)) required <- paste("Required:", required)
+        schema <- z$get$parameters[[k]]$schema
+        if (!is.null(schema)) {
+          type <- schema$type %||% ""
+          if (type != "") {
+            type <- switch(type, string = "character", type)
+          }
+          enum <- schema$enum %||% ""
+          if (all(enum != "")) enum <- sprintf("Must be one of: %s.", paste0(enum, collapse = ", "))
+          default <- schema$default %||% ""
+          if (default != "") default <- sprintf("Default: %s.", default)
+        }
+        param_level[[k]] <- glue::glue("#' @param ({type}) {desc} {enum} {default} {required}")
+      }
+
+      # handle parameters
       if (is.null(forms)) {
         fun <- sprintf("%s <- function(...) {",
           sw_stand_route(names(routes)[i]))
         http <- sprintf("   %s(url, ...)", paste0("x", "GET"))
+        urlprep <- sprintf("   url <- file.path(base_url(), \"%s\")",
+          sub("/", "", names(routes)[i]))
       } else {
         fun <- sprintf(
           "%s <- function(%s, ...) {",
           sw_stand_route(names(routes)[i]),
           paste0(forms, collapse = ", "))
-        param_names <- vapply(z$get$parameters, "[[", "", "name")
-        http <- sprintf(
-          "   %s(url, query = ct(list(%s)), ...)",
-          paste0("x", "GET"),
-          paste0(paste(param_names, param_names, sep = " = "), collapse = ", ")
-        )
+        # split btw query params and path params
+        p_path <- Filter(function(w) w$`in` == "path", z$get$parameters)
+        if (length(p_path)) {
+          p_path <- vapply(p_path, "[[", "", "name")
+          urlprep <- sprintf("   url <- file.path(base_url(), glue::glue(\"%s\"))", 
+            sub("^/", "", names(routes)[i]))
+        }
+
+        p_query <- Filter(function(w) w$`in` == "query", z$get$parameters)
+        if (length(p_query)) {
+          p_query <- vapply(p_query, "[[", "", "name")
+          http <- sprintf(
+            "   %s(url, query = ct(list(%s)), ...)",
+            paste0("x", "GET"),
+            paste0(paste(p_query, p_query, sep = " = "), collapse = ", ")
+          )
+        } else {
+          http <- "   xGET(url, ...)"
+        }
+
+        if (inherits(tryCatch(urlprep, error = function(e) e), "error")) {
+          urlprep <- sprintf("   url <- file.path(base_url(), \"%s\")",
+            sub("/", "", names(routes)[i]))
+        }
       }
 
-      ## URL
-      urlprep <- sprintf("   url <- file.path(base_url(), \"%s\")",
-                         sub("/", "", names(routes)[i]))
+      docs <- paste0(c(pkg_level, param_level), collapse = "\n")
 
       end <- "}\n"
-      all <- paste(fun, urlprep, http, end, sep = "\n")
+      all <- paste(docs, fun, urlprep, http, end, sep = "\n")
       cat(all, file = outfile, append = TRUE, sep = "\n")
     }
     cat("\n", file = outfile, append = TRUE)
   }
+}
+
+pkg_level_docs <- function(x) {
+  pkglev_title <- x$summary %||% ""
+  pkglev_descr <- x$description %||% ""
+  pkglev_keywords <- x$tags %||% ""
+  if (all(pkglev_keywords != ""))
+    pkglev_keywords <- paste0(pkglev_keywords, collapse = " ")
+  line_prefix <- "#'"
+  top <- paste(line_prefix, c(pkglev_title, "", pkglev_descr))
+  pk <- ""
+  if (pkglev_keywords != "") pk <- paste(line_prefix, "@keywords", pkglev_keywords)
+  c(top, pk)
 }
 
 sw_param_get <- function(x, spec) {

@@ -121,8 +121,9 @@ jsonlite::fromJSON(res)
 ## Swagger/OpenAPI
 
 
-Get a spec, in this case from <https://github.com/bcgov/api-specs>
+### Example 1
 
+Get a spec, in this case from the Province of British Columbia <https://github.com/bcgov/api-specs>
 
 ```{r}
 bc_spec <- 
@@ -135,10 +136,11 @@ Generate the package, and install it
 
 ```{r}
 generate_pkg(
-  "bcgov/", 
+  pkg_path = "bcgov/", 
   template_path = bc_spec_path
 )
 devtools::install_local("bcgov", force = TRUE, quiet = TRUE)
+devtools::document("bcgov")
 ```
 
 Run some functions
@@ -157,6 +159,40 @@ tibble::as_tibble(jsonlite::fromJSON(res)$features)
 unlink("bcgov", TRUE, TRUE)
 unlink(bc_spec_path, TRUE)
 remove.packages("bcgov")
+```
+
+### Example 2
+
+An example with the [Directory of Open Access Journals](https://doaj.org/)
+
+```{r}
+doaj_spec <- "https://doaj.org/api/v1/swagger.json"
+doaj_spec_path <- "doaj.json"
+download.file(doaj_spec, doaj_spec_path)
+```
+
+Generate the package, and install it
+
+```{r}
+generate_pkg(
+  pkg_path = "doaj/", 
+  template_path = doaj_spec_path,
+  base_url = "https://doaj.org"
+)
+devtools::install_local("doaj", force = TRUE, quiet = TRUE)
+```
+
+Run a function
+
+```{r}
+doaj::api_v1_search_journals_search_query("cellular")
+```
+
+```{r}
+# cleanup
+unlink("doaj", TRUE, TRUE)
+unlink(doaj_spec_path, TRUE)
+remove.packages("doaj")
 ```
 
 
