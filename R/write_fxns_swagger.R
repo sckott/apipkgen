@@ -46,6 +46,7 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
       # prep docs, parameter level
       param_level <- vector("character", length = length(z$get$parameters))
       for (k in seq_along(z$get$parameters)) {
+        name <- z$get$parameters[[k]]$name
         desc <- z$get$parameters[[k]]$description %||% ""
         desc <- gsub("\n", " ", desc)
         if (desc != "") desc <- paste0(sub("\\.$", "", desc), ".")
@@ -64,7 +65,7 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
         if (type != "") type <- switch(type, string = "character", type)
         if (all(enum != "")) enum <- sprintf("Must be one of: %s.", paste0(enum, collapse = ", "))
         if (default != "") default <- sprintf("Default: %s.", default)
-        param_level[[k]] <- glue::glue("#' @param ({type}) {desc} {enum} {default} {required}")
+        param_level[[k]] <- glue::glue("#' @param {name} ({type}) {desc} {enum} {default} {required}")
       }
 
       # handle parameters
