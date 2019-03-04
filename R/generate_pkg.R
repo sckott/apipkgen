@@ -2,10 +2,13 @@
 #'
 #' @export
 #' @param pkg_path (character) Path to the new package, where last part will be
-#' the package name
+#'   the package name
 #' @param template_path (character) path to your yaml template file. by default,
-#' we use a demo template yaml file
+#'   we use a demo template yaml file
 #' @param http_lib (character) one of `crul` (default) or `httr`
+#' @param base_url (character) Base URL. If `NULL`, defaults to `baseUrl` or is
+#'   formed from `schemes`, `host`, `basePath` as specified in the template
+#'   file.
 #' @examples \dontrun{
 #' generate_pkg(pkg_path = "mypkg")
 #'

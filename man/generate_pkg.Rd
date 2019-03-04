@@ -15,6 +15,10 @@ the package name}
 we use a demo template yaml file}
 
 \item{http_lib}{(character) one of \code{crul} (default) or \code{httr}}
+
+\item{base_url}{(character) Base URL. If \code{NULL}, defaults to \code{baseUrl} or is
+formed from \code{schemes}, \code{host}, \code{basePath} as specified in the template
+file.}
 }
 \description{
 HTTP API package generator
