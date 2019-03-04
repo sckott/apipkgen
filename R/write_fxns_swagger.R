@@ -53,14 +53,16 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
         schema <- z$get$parameters[[k]]$schema
         if (!is.null(schema)) {
           type <- schema$type %||% ""
-          if (type != "") {
-            type <- switch(type, string = "character", type)
-          }
           enum <- schema$enum %||% ""
-          if (all(enum != "")) enum <- sprintf("Must be one of: %s.", paste0(enum, collapse = ", "))
           default <- schema$default %||% ""
-          if (default != "") default <- sprintf("Default: %s.", default)
+        } else {
+          type <- z$get$parameters[[k]]$type %||% ""
+          enum <- ""
+          default <- ""
         }
+        if (type != "") type <- switch(type, string = "character", type)
+        if (all(enum != "")) enum <- sprintf("Must be one of: %s.", paste0(enum, collapse = ", "))
+        if (default != "") default <- sprintf("Default: %s.", default)
         param_level[[k]] <- glue::glue("#' @param ({type}) {desc} {enum} {default} {required}")
       }
 
