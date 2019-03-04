@@ -127,7 +127,7 @@ pkg_level_docs <- function(x) {
   top <- paste(line_prefix, c(pkglev_title, "", pkglev_descr))
   pk <- ""
   if (pkglev_keywords != "") pk <- paste(line_prefix, "@keywords", pkglev_keywords)
-  c(top, pk)
+  c(top, pk, "#' @export")
 }
 
 sw_param_get <- function(x, spec) {
