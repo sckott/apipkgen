@@ -19,12 +19,11 @@ write_constants <- function(template_path = NULL, outfile = "zzz.R",
     } else {
       bu <- sprintf("%s://%s%s", spec$schemes, spec$host, spec$basePath)
     }
-    url <- sprintf("\n\nbase_url <- function() \"%s\"", 
-      if (!is.null(base_url)) base_url else bu)
-    cat(url, file = outfile, append = TRUE)
   } else {
-    cat(sprintf("\n\nbase_url <- function() \"%s\"", 
-      if (!is.null(base_url)) base_url else spec$baseurl),
-    file = outfile, append = TRUE)
+    bu <- spec$baseurl
   }
+  url <- base_url %||% bu
+  url <- sub("/$", "", url)
+  cat(sprintf("\n\nbase_url <- function() \"%s\"", url),
+      file = outfile, append = TRUE)
 }
