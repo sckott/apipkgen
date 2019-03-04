@@ -11,7 +11,8 @@ BugReports: https://github.com/ropenscilabs/apipkgen/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
-    yaml
+    yaml,
+    glue
 Suggests:
     roxygen2 (>= 6.1.1)
 RoxygenNote: 6.1.1
