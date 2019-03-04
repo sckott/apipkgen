@@ -47,6 +47,7 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
       param_level <- vector("character", length = length(z$get$parameters))
       for (k in seq_along(z$get$parameters)) {
         desc <- z$get$parameters[[k]]$description %||% ""
+        desc <- gsub("\n", " ", desc)
         if (desc != "") desc <- paste0(sub("\\.$", "", desc), ".")
         required <- z$get$parameters[[k]]$required
         if (!is.null(required)) required <- paste("Required:", required)
@@ -117,6 +118,7 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
 pkg_level_docs <- function(x) {
   pkglev_title <- x$summary %||% ""
   pkglev_descr <- x$description %||% ""
+  pkglev_descr <- strsplit(pkglev_descr, "\n")[[1]]
   pkglev_keywords <- x$tags %||% ""
   if (all(pkglev_keywords != ""))
     pkglev_keywords <- paste0(pkglev_keywords, collapse = " ")
