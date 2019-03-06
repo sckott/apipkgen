@@ -139,8 +139,16 @@ generate_pkg(
   pkg_path = "bcgov/", 
   template_path = bc_spec_path
 )
-devtools::install_local("bcgov", force = TRUE, quiet = TRUE)
 devtools::document("bcgov")
+devtools::install_local("bcgov", force = TRUE, quiet = TRUE)
+```
+
+Restart R ...
+
+Get man page for a function
+
+```{r eval=FALSE}
+?bcgov::nameAuthorities
 ```
 
 Run some functions
@@ -154,8 +162,9 @@ res <- bcgov::names_search(name = "Victoria")
 tibble::as_tibble(jsonlite::fromJSON(res)$features)
 ```
 
+cleanup
+
 ```{r}
-# cleanup
 unlink("bcgov", TRUE, TRUE)
 unlink(bc_spec_path, TRUE)
 remove.packages("bcgov")
@@ -179,6 +188,7 @@ generate_pkg(
   template_path = doaj_spec_path,
   base_url = "https://doaj.org"
 )
+devtools::document("doaj")
 devtools::install_local("doaj", force = TRUE, quiet = TRUE)
 ```
 
@@ -188,8 +198,9 @@ Run a function
 doaj::api_v1_search_journals_search_query("cellular")
 ```
 
+cleanup
+
 ```{r}
-# cleanup
 unlink("doaj", TRUE, TRUE)
 unlink(doaj_spec_path, TRUE)
 remove.packages("doaj")
