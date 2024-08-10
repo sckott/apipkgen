@@ -7,4 +7,4 @@ appveyor.yml
 cran-comments.md
 man-roxygen
 notes.R
-
+^Makefile$

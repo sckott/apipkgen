@@ -4,8 +4,7 @@
 \alias{write_constants}
 \title{Constants to zzz}
 \usage{
-write_constants(template_path = NULL, outfile = "zzz.R",
-  base_url = NULL)
+write_constants(template_path = NULL, outfile = "zzz.R", base_url = NULL)
 }
 \arguments{
 \item{template_path}{(character) path to your yaml template file. by default,

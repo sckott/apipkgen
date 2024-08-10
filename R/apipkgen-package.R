@@ -1,9 +1,7 @@
-#' apipkgen
-#'
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
 #' @import yaml
-#' @name apipkgen-package
-#' @aliases apipkgen
-#' @docType package
-#' @author Scott Chamberlain \email{myrmecocystus@@gmail.com}
-#' @keywords package
+## usethis namespace: end
 NULL

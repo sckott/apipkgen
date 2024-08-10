@@ -4,8 +4,12 @@
 \alias{generate_pkg}
 \title{HTTP API package generator}
 \usage{
-generate_pkg(pkg_path, template_path = NULL, http_lib = "crul",
-  base_url = NULL)
+generate_pkg(
+  pkg_path,
+  template_path = NULL,
+  http_lib = "crul",
+  base_url = NULL
+)
 }
 \arguments{
 \item{pkg_path}{(character) Path to the new package, where last part will be
@@ -29,7 +33,7 @@ generate_pkg(pkg_path = "mypkg")
 
 # from a Swagger spec
 url <- "https://raw.githubusercontent.com/ropenscilabs/apispecs/master/swagger/crossref.yml"
-# x <- paste0(readLines(url), collapse = "\\n")
+# x <- paste0(readLines(url), collapse = "\n")
 # yaml::yaml.load(string = x)
 download.file(url, "crossref.yml")
 generate_pkg(pkg_path = "foobar", template_path = "crossref.yml")

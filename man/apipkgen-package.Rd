@@ -2,13 +2,22 @@
 % Please edit documentation in R/apipkgen-package.R
 \docType{package}
 \name{apipkgen-package}
-\alias{apipkgen-package}
 \alias{apipkgen}
-\title{apipkgen}
+\alias{apipkgen-package}
+\title{apipkgen: Package Generator for HTTP API Wrapper Packages}
 \description{
-apipkgen
+Package Generator for HTTP API Wrapper Packages.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/sckott/apipkgen}
+  \item Report bugs at \url{https://github.com/sckott/apipkgen/issues}
+}
+
 }
 \author{
-Scott Chamberlain \email{myrmecocystus@gmail.com}
+\strong{Maintainer}: Scott Chamberlain \email{myrmecocystus@gmail.com}
+
 }
-\keyword{package}
+\keyword{internal}
