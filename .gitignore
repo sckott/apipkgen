@@ -3,3 +3,5 @@
 .RData
 oldtravis.yml
 notes.R
+docs
+.DS_Store

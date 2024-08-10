@@ -8,3 +8,7 @@ cran-comments.md
 man-roxygen
 notes.R
 ^Makefile$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

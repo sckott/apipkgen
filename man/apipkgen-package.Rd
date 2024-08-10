@@ -12,6 +12,7 @@ Package Generator for HTTP API Wrapper Packages.
 Useful links:
 \itemize{
   \item \url{https://github.com/sckott/apipkgen}
+  \item \url{http://sckott.github.io/apipkgen/}
   \item Report bugs at \url{https://github.com/sckott/apipkgen/issues}
 }
 
