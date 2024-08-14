@@ -12,3 +12,4 @@ notes.R
 ^docs$
 ^pkgdown$
 ^\.github$
+crossref.yml
