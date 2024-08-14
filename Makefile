@@ -23,3 +23,6 @@ check: build
 
 readme:
 	${RSCRIPT} -e "knitr::knit('README.Rmd')"
+
+style_package:
+	${RSCRIPT} -e "styler::style_pkg()"
