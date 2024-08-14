@@ -12,5 +12,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
     yaml,
-    glue
+    glue,
+    usethis,
+    withr
 RoxygenNote: 7.3.2
