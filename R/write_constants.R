@@ -7,9 +7,9 @@
 #' @param base_url (character) optional. if not given, use base url from spec.
 #' you can give it here and it will override anything in the spec
 #' @return returns silently, after writing things to zzz.R
-write_constants <- function(template_path = NULL, outfile = "zzz.R",
-  base_url = NULL) {
-  
+write_constants <- function(
+    template_path = NULL, outfile = "zzz.R",
+    base_url = NULL) {
   spec <- load_spec(template_path)
   if ("raml" %in% names(spec)) {
     stop("not ready yet")
@@ -25,5 +25,6 @@ write_constants <- function(template_path = NULL, outfile = "zzz.R",
   url <- base_url %||% bu
   url <- sub("/$", "", url)
   cat(sprintf("\n\nbase_url <- function() \"%s\"", url),
-      file = outfile, append = TRUE)
+    file = outfile, append = TRUE
+  )
 }

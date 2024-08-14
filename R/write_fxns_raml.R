@@ -8,13 +8,15 @@ write_fxns_raml <- function(template_path = NULL, outfile = "http-fxns.R") {
     for (j in seq_along(z[grep("get|post|put|patch|delete|head|options", names(z))])) {
       forms <- c()
       for (k in seq_along(z$get$queryParameters)) {
-        forms[[k]] <- paste0(names(z$get$queryParameters)[k],
-                             if (z$get$queryParameters[[k]]$required) '' else ' = NULL')
+        forms[[k]] <- paste0(
+          names(z$get$queryParameters)[k],
+          if (z$get$queryParameters[[k]]$required) "" else " = NULL"
+        )
       }
 
-      fun <- sprintf('%s <- function(%s, ...) {', sub('/', '', names(routes)[i]), paste0(forms, collapse = ", "))
+      fun <- sprintf("%s <- function(%s, ...) {", sub("/", "", names(routes)[i]), paste0(forms, collapse = ", "))
       urlprep <- if (is.null(z$uriParameters)) {
-        sprintf("   url <- file.path(base_url(), \"%s\")", sub('/', '', names(routes)[i]))
+        sprintf("   url <- file.path(base_url(), \"%s\")", sub("/", "", names(routes)[i]))
       } else {
         sprintf(
           "   url <- file.path(base_url(), \"%s\")\n   if (!is.null(%s)) url <- file.path(url, %s)",
@@ -28,7 +30,7 @@ write_fxns_raml <- function(template_path = NULL, outfile = "http-fxns.R") {
         paste0("x", "GET"),
         paste0(paste(names(z$get$queryParameters), names(z$get$queryParameters), sep = " = "), collapse = ", ")
       )
-      end <- '}\n'
+      end <- "}\n"
       all <- paste(fun, urlprep, http, end, sep = "\n")
       cat(all, file = outfile, append = TRUE, sep = "\n")
     }

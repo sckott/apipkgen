@@ -12,9 +12,12 @@
 write_fxns <- function(template_path = NULL, outfile = "http-fxns.R") {
   spec <- load_spec(template_path)
 
-  if ("raml" %in% names(spec)) return(write_fxns_raml(spec, outfile))
-  if (any(c("swagger", "openapi") %in% names(spec)))
+  if ("raml" %in% names(spec)) {
+    return(write_fxns_raml(spec, outfile))
+  }
+  if (any(c("swagger", "openapi") %in% names(spec))) {
     return(write_fxns_swagger(template_path, outfile))
+  }
   write_fxns_default(spec, outfile)
 }
 
@@ -25,16 +28,16 @@ write_fxns_default <- function(spec, outfile = "http-fxns.R") {
     for (j in seq_along(z$methods)) {
       forms <- c()
       for (k in seq_along(z$params)) {
-        forms[[k]] <- paste0(names(z$params)[k], if (z$params[[k]]$required) '' else ' = NULL')
+        forms[[k]] <- paste0(names(z$params)[k], if (z$params[[k]]$required) "" else " = NULL")
       }
 
       if (!is.null(z$path)) {
-        paths <- paste0(names(z$path[1]), if (z$path[[1]]$required) '' else ' = NULL')
+        paths <- paste0(names(z$path[1]), if (z$path[[1]]$required) "" else " = NULL")
         forms <- c(paths, forms)
       }
 
       fxn_suff <- if (length(z$methods) > 1) paste0("_", z$methods[j]) else ""
-      fun <- sprintf('%s%s <- function(%s, ...) {', names(spec$routes)[i], fxn_suff, paste0(forms, collapse = ", "))
+      fun <- sprintf("%s%s <- function(%s, ...) {", names(spec$routes)[i], fxn_suff, paste0(forms, collapse = ", "))
       urlprep <- if (is.null(z$path)) {
         sprintf("   url <- file.path(base_url(), \"%s\")", names(spec$routes)[i])
       } else {
@@ -50,7 +53,7 @@ write_fxns_default <- function(spec, outfile = "http-fxns.R") {
         paste0("x", z$methods[j]),
         paste0(paste(names(z$params), names(z$params), sep = " = "), collapse = ", ")
       )
-      end <- '}\n'
+      end <- "}\n"
       all <- paste(fun, urlprep, http, end, sep = "\n")
       cat(auto_gen, file = outfile, append = TRUE, sep = "\n")
       cat(all, file = outfile, append = TRUE, sep = "\n")
@@ -68,9 +71,10 @@ load_spec <- function(x) {
 }
 
 write_http_funs <- function(file, http_lib = "crul") {
-  http_lib_path <- switch(http_lib, 
-    crul = "http-functions-crul.R", 
-    httr = "http-functions-httr.R")
+  http_lib_path <- switch(http_lib,
+    crul = "http-functions-crul.R",
+    httr = "http-functions-httr.R"
+  )
   x <- system.file("examples", http_lib_path, package = "apipkgen")
   cat(paste(readLines(x), collapse = "\n"), file = file, append = TRUE)
 }

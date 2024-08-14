@@ -13,7 +13,6 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
     if (exists("urlprep")) rm(urlprep)
     z <- routes[[i]]
     for (j in seq_along(z[grep("get|post|put|patch|delete|head|options", names(z))])) {
-
       ## fxn level docs
       pkg_level <- pkg_level_docs(z$get)
 
@@ -25,10 +24,11 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
           pardef$name,
           if (!is.null(pardef$required)) {
             if (pardef$required) {
-              if (!is.null(pardef$schema$default))
+              if (!is.null(pardef$schema$default)) {
                 sprintf(" = \"%s\"", pardef$schema$default)
-              else 
+              } else {
                 ""
+              }
             } else {
               " = NULL"
             }
@@ -62,7 +62,12 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
           enum <- ""
           default <- ""
         }
-        if (type != "") type <- switch(type, string = "character", type)
+        if (type != "") {
+          type <- switch(type,
+            string = "character",
+            type
+          )
+        }
         if (all(enum != "")) enum <- sprintf("Must be one of: %s.", paste0(enum, collapse = ", "))
         if (default != "") default <- sprintf("Default: %s.", default)
         param_level[[k]] <- glue::glue("#' @param {name} ({type}) {desc} {enum} {default} {required}")
@@ -70,22 +75,29 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
 
       # handle parameters
       if (is.null(forms)) {
-        fun <- sprintf("%s <- function(...) {",
-          sw_stand_route(names(routes)[i]))
+        fun <- sprintf(
+          "%s <- function(...) {",
+          sw_stand_route(names(routes)[i])
+        )
         http <- sprintf("   %s(url, ...)", paste0("x", "GET"))
-        urlprep <- sprintf("   url <- file.path(base_url(), \"%s\")",
-          sub("/", "", names(routes)[i]))
+        urlprep <- sprintf(
+          "   url <- file.path(base_url(), \"%s\")",
+          sub("/", "", names(routes)[i])
+        )
       } else {
         fun <- sprintf(
           "%s <- function(%s, ...) {",
           sw_stand_route(names(routes)[i]),
-          paste0(forms, collapse = ", "))
+          paste0(forms, collapse = ", ")
+        )
         # split btw query params and path params
         p_path <- Filter(function(w) w$`in` == "path", z$get$parameters)
         if (length(p_path)) {
           p_path <- vapply(p_path, "[[", "", "name")
-          urlprep <- sprintf("   url <- file.path(base_url(), glue::glue(\"%s\"))", 
-            sub("^/", "", names(routes)[i]))
+          urlprep <- sprintf(
+            "   url <- file.path(base_url(), glue::glue(\"%s\"))",
+            sub("^/", "", names(routes)[i])
+          )
         }
 
         p_query <- Filter(function(w) w$`in` == "query", z$get$parameters)
@@ -101,8 +113,10 @@ write_fxns_swagger <- function(template_path = NULL, outfile = "http-fxns.R") {
         }
 
         if (inherits(tryCatch(urlprep, error = function(e) e), "error")) {
-          urlprep <- sprintf("   url <- file.path(base_url(), \"%s\")",
-            sub("/", "", names(routes)[i]))
+          urlprep <- sprintf(
+            "   url <- file.path(base_url(), \"%s\")",
+            sub("/", "", names(routes)[i])
+          )
         }
       }
 
@@ -121,8 +135,9 @@ pkg_level_docs <- function(x) {
   pkglev_descr <- x$description %||% ""
   pkglev_descr <- strsplit(pkglev_descr, "\n")[[1]]
   pkglev_keywords <- x$tags %||% ""
-  if (all(pkglev_keywords != ""))
+  if (all(pkglev_keywords != "")) {
     pkglev_keywords <- paste0(pkglev_keywords, collapse = " ")
+  }
   line_prefix <- "#'"
   top <- paste(line_prefix, c(pkglev_title, "", pkglev_descr))
   pk <- ""
@@ -141,5 +156,5 @@ sw_param_names <- function(x, spec) {
 }
 
 sw_stand_route <- function(x) {
-  gsub("[{}-]", "", gsub("/", "_", sub('^/', '', x)))
+  gsub("[{}-]", "", gsub("/", "_", sub("^/", "", x)))
 }
