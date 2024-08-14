@@ -17,17 +17,20 @@
 #' # x <- paste0(readLines(url), collapse = "\n")
 #' # yaml::yaml.load(string = x)
 #' download.file(url, "crossref.yml")
-#' generate_pkg(pkg_path = "foobar", template_path = "crossref.yml")
+#' my_dir <- file.path(tempdir(), "apples")
+#' generate_pkg(pkg_path = my_dir, template_path = "crossref.yml")
 #' }
-generate_pkg <- function(pkg_path, template_path = NULL, http_lib = "crul", 
-  base_url = NULL) {
-
+generate_pkg <- function(
+    pkg_path, template_path = NULL, http_lib = "crul",
+    base_url = NULL) {
   assert(http_lib, "character")
   stopifnot(http_lib %in% c("crul", "httr"))
   create_pkg(path = pkg_path, http_lib)
   path <- normalizePath(pkg_path, winslash = "/", mustWork = TRUE)
   write_helpers(file.path(path, "R/http-helpers.R"), http_lib)
   write_fxns(template_path, outfile = file.path(path, "R/http-fxns.R"))
-  write_constants(template_path, outfile = file.path(path, "R/zzz.R"), 
-    base_url = base_url)
+  write_constants(template_path,
+    outfile = file.path(path, "R/zzz.R"),
+    base_url = base_url
+  )
 }

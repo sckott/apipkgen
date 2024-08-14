@@ -36,6 +36,7 @@ url <- "https://raw.githubusercontent.com/ropenscilabs/apispecs/master/swagger/c
 # x <- paste0(readLines(url), collapse = "\n")
 # yaml::yaml.load(string = x)
 download.file(url, "crossref.yml")
-generate_pkg(pkg_path = "foobar", template_path = "crossref.yml")
+my_dir <- file.path(tempdir(), "apples")
+generate_pkg(pkg_path = my_dir, template_path = "crossref.yml")
 }
 }
