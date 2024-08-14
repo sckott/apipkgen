@@ -51,8 +51,9 @@ use the function `generate_pkg()`
 
 
 ``` r
-template <- system.file('examples', 'template_crossref.yml',
-    package = "apipkgen")
+template <- system.file("examples", "template_crossref.yml",
+  package = "apipkgen"
+)
 path <- file.path(tempdir(), "crpkg")
 generate_pkg(path, template_path = template)
 ```
@@ -122,7 +123,7 @@ Get a spec, in this case from the Province of British Columbia <https://github.c
 
 
 ``` r
-bc_spec <- 
+bc_spec <-
   "https://raw.githubusercontent.com/bcgov/api-specs/master/bcgnws/bcgnws.json"
 bc_spec_path <- "bcgov_bcgnws.yaml"
 download.file(bc_spec, bc_spec_path)
@@ -133,7 +134,7 @@ Generate the package, and install it
 
 ``` r
 generate_pkg(
-  pkg_path = "bcgov/", 
+  pkg_path = "bcgov/",
   template_path = bc_spec_path
 )
 devtools::document("bcgov")
@@ -187,7 +188,7 @@ Generate the package, and install it
 
 ``` r
 generate_pkg(
-  pkg_path = "doaj/", 
+  pkg_path = "doaj/",
   template_path = doaj_spec_path,
   base_url = "https://doaj.org"
 )
