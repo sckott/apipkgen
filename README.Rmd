@@ -174,7 +174,7 @@ remove.packages("bcgov")
 An example with the [Directory of Open Access Journals](https://doaj.org/)
 
 ```{r}
-doaj_spec <- "https://doaj.org/api/v1/swagger.json"
+doaj_spec <- "https://doaj.org/api/swagger.json"
 doaj_spec_path <- "doaj.json"
 download.file(doaj_spec, doaj_spec_path)
 ```
@@ -182,19 +182,22 @@ download.file(doaj_spec, doaj_spec_path)
 Generate the package, and install it
 
 ```{r}
+doaj_dir <- file.path(tempdir(), "doaj")
 generate_pkg(
-  pkg_path = "doaj/",
+  pkg_path = doaj_dir,
   template_path = doaj_spec_path,
   base_url = "https://doaj.org"
 )
-devtools::document("doaj")
-devtools::install_local("doaj", force = TRUE, quiet = TRUE)
+setwd(doaj_dir)
+devtools::document(doaj_dir)
+devtools::install_local(doaj_dir, force = TRUE, quiet = TRUE)
 ```
 
 Run a function
 
 ```{r}
-doaj::api_v1_search_journals_search_query("cellular")
+(json <- doaj::api_search_journals_search_query("cellular"))
+jsonlite::fromJSON(json)
 ```
 
 cleanup
